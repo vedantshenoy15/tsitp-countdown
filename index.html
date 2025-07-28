@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TSITP Ep 4 Countdown</title>
+  <style>
+    body {
+      background: url('/Users/vedantshenoy/Downloads/summer-i-turned-pretty-cast-beach-backdrop-qfnp0eutbo1qia91.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: plum;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 2rem;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* darker = 0.6 or 0.7 */
+  z-index: 0;
+}
+h1, #countdown {
+  position: relative;
+  z-index: 1;
+}
+    
+  </style>
+</head>
+<body>
+  <h1>Countdown to Episode 4 of The Summer I Turned Pretty</h1>
+  <div id="countdown">Loading...</div>
+  <div class="overlay"></div>
+
+  <script>
+    const targetDate = new Date("2025-07-31T07:00:00Z"); // 12:30 PM IST = 07:00 UTC
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "Episode 4 is out now! 🎉";
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        `${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
