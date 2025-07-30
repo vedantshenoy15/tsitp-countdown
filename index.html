@@ -1,72 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TSITP Ep 4 Countdown</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSITP Countdown</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: url('https://wallpapers.com/images/hd/summer-i-turned-pretty-cast-beach-backdrop-qfnp0eutbo1qia91.jpg') no-repeat center center fixed;
+      background: url('https://m.media-amazon.com/images/S/pv-target-images/542cf22f7af7aa22e2864d0f01a52d71e5b7c4f1ead3a7d160ebb145484a72de._SX1080_FMjpg_.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: plum;
       font-family: 'Segoe UI', sans-serif;
+      color: #FFFAFA;
+      text-align: center;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      text-align: center;
+      min-height: 100vh;
+      padding: 20px;
+      backdrop-filter: brightness(0.7);
     }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .container {
+      z-index: 1;
+      position: relative;
+      max-width: 800px;
+    }
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
     #countdown {
       font-size: 2rem;
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      margin: 30px 0;
+      padding: 15px 30px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      display: inline-block;
     }
-    .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5); /* darker = 0.6 or 0.7 */
-  z-index: 0;
-}
-h1, #countdown {
-  position: relative;
-  z-index: 1;
-}
-    
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .buttons a {
+      padding: 12px 25px;
+      text-decoration: none;
+      background: #1f80e0;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .buttons a:hover {
+      background: #1462b2;
+    }
+
+    .info-boxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .info-box {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 1rem;
+      min-width: 120px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.2rem; }
+      #countdown { font-size: 1.5rem; }
+    }
   </style>
 </head>
 <body>
-  <h1>Countdown to Episode 4 of The Summer I Turned Pretty</h1>
-  <div id="countdown">Loading...</div>
   <div class="overlay"></div>
+  <div class="container">
+    <h1>The Summer I Turned Pretty</h1>
+    <h2>Countdown to the next episode at 12:30 PM IST on Wednesday</h2>
+    <div id="countdown">Loading countdown...</div>
+    <div class="buttons">
+      <a href="https://www.primevideo.com/detail/0MYTJAQEW8HBSG39UONDSFMEM3/ref=atv_hm_hom_c_dfByPd_brws_3_1?jic=8%7CEgRzdm9k" target="_blank">Watch Episode</a>
+      <a href="#" onclick="alert('Reminder set!')">Set Reminder</a>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box">Season 3    <br><small>Currently Airing</small></div>
+      <div class="info-box">12:30 PM<br><small>IST Release Time</small></div>
+      <div class="info-box">Every Wednesday<br><small>New Episode</small></div>
+    </div>
+  </div>
 
   <script>
-    const targetDate = new Date("2025-07-30T07:00:00Z"); // 12:30 PM IST = 07:00 UTC
+    const targetDate = new Date("2025-08-06T07:00:00Z"); // 12:30 PM IST = 07:00 UTC
 
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "Episode 4 is out now! 🎉";
+        document.getElementById("countdown").innerHTML = "🎉 The episode is out now!";
         return;
       }
-
+    
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       document.getElementById("countdown").innerHTML =
-        `${hours}h ${minutes}m ${seconds}s`;
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
     updateCountdown();
